@@ -1,17 +1,12 @@
 package guru.qa.dz;
 
 import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.conditions.Text;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-
-import java.io.File;
 import java.util.Arrays;
-
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
-
 
 public class FirstTestForm {
     @BeforeAll
@@ -20,20 +15,20 @@ public class FirstTestForm {
         Configuration.baseUrl = "https://demoqa.com";
         Configuration.browserSize = "1920x1080";
     }
+    //переменные
+    String firstName = "Oleg";
+    String lastName = "Popov";
+    String mail = "olegpopov@gmail.com";
+    String mobile = "9999999999";
+    String currentAddress = "Moscow 2022";
+    String gender = "Male";
+    String subjects = "English";
+    String state = "NCR";
+    String city = "Noida";
+    String image = "img/image.jpeg";
 
     @Test
     void fillFormTest(){
-        //переменные
-        String firstName = "Oleg";
-        String lastName = "Popov";
-        String mail = "olegpopov@gmail.com";
-        String mobile = "9999999999";
-        String currentAddress = "Moscow 2022";
-        String gender = "Male";
-        String subjects = "English";
-        String state = "NCR";
-        String city = "Noida";
-        File cv = new File("img/image.jpeg");
 
         //открытие браузера
         open("/automation-practice-form");
@@ -72,11 +67,14 @@ public class FirstTestForm {
         $("#react-select-4-input").setValue(city).pressEnter();
 
         //загрузка файла
-        $("#uploadPicture").uploadFromClasspath(String.valueOf(cv));
+        $("#uploadPicture").uploadFromClasspath(image);
 
         //submit
         $("#submit").click();
+    }
 
+    @Test
+    void finalFormTest() {
         //итоговая форма
         $(".modal-header").shouldHave(text("Thanks for submitting the form"));
         $(".modal-body").shouldHave(
@@ -90,19 +88,16 @@ public class FirstTestForm {
                 text(gender),
                 text("Mobile"),
                 text(mobile),
-                text("Date of Birth"),
+                text("Date of Birth 15 May,1910"),
                 text("Subjects"),
                 text(subjects),
-                text("Hobbies"),
-                text("Sports, Reading, Music"),
+                text("Hobbies Sports, Reading, Music"),
                 text("Picture"),
+                text(image.substring(4)),
                 text("Address"),
                 text(currentAddress),
                 text("State and City"),
                 text(state + " " + city)
-                );
-
-
-
+        );
     }
 }

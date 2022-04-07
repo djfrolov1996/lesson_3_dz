@@ -1,11 +1,14 @@
 package guru.qa.dz;
 
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.conditions.Text;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.util.Arrays;
+
+import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
@@ -71,7 +74,33 @@ public class FirstTestForm {
         //загрузка файла
         $("#uploadPicture").uploadFromClasspath(String.valueOf(cv));
 
+        //submit
+        $("#submit").click();
+
         //итоговая форма
+        $(".modal-header").shouldHave(text("Thanks for submitting the form"));
+        $(".modal-body").shouldHave(
+                text("Label"),
+                text("Values"),
+                text("Student Name"),
+                text(firstName + " " + lastName),
+                text("Student Email"),
+                text(mail),
+                text("Gender"),
+                text(gender),
+                text("Mobile"),
+                text(mobile),
+                text("Date of Birth"),
+                text("Subjects"),
+                text(subjects),
+                text("Hobbies"),
+                text("Sports, Reading, Music"),
+                text("Picture"),
+                text("Address"),
+                text(currentAddress),
+                text("State and City"),
+                text(state + " " + city)
+                );
 
 
 

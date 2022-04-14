@@ -51,18 +51,18 @@ public class MainRegistrationFormTest {
                 .setState(state)
                 .setCity(city)
                 .setFileUpload(image)
-                .setSubmit();
+                .clickSubmit();
 
         //итоговая форма
-        registrationFormPage.setFinalFormTest("Student Name", expectedFullName)
-                .setFinalFormTest("Student Email", mail)
-                .setFinalFormTest("Gender", gender)
-                .setFinalFormTest("Date of Birth", "15 May,1910")
-                .setFinalFormTest("Mobile", mobile)
-                .setFinalFormTest("Address", currentAddress)
-                .setFinalFormTest("Subjects", subjects)
-                .setFinalFormTest("State and City", format("%s %s", state, city))
-                .setFinalFormTest("Picture", image.substring(4));
+        registrationFormPage.checkFinalFormTest("Student Name", expectedFullName)
+                .checkFinalFormTest("Student Email", mail)
+                .checkFinalFormTest("Gender", gender)
+                .checkFinalFormTest("Date of Birth", "15 May,1910")
+                .checkFinalFormTest("Mobile", mobile)
+                .checkFinalFormTest("Address", currentAddress)
+                .checkFinalFormTest("Subjects", subjects)
+                .checkFinalFormTest("State and City", format("%s %s", state, city))
+                .checkFinalFormTest("Picture", image.substring(4));
     }
 
 }

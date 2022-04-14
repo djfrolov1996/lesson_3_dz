@@ -12,7 +12,24 @@ public class RegistrationFormPage {
     //locators:
     SelenideElement firstNameInput = $("#firstName");
     SelenideElement lastNameInput = $("#lastName");
+    SelenideElement dateOfBirth = $("#dateOfBirthInput");
+    SelenideElement dateOfBirthMonth = $(".react-datepicker__month-select");
+    SelenideElement dateOfBirthDay = $(".react-datepicker__month-container");
+    SelenideElement dateOfBirthYear = $(".react-datepicker__year-select");
     SelenideElement emailInput = $("#userEmail");
+    SelenideElement genderInput = $("#genterWrapper");
+    SelenideElement phoneNumberInput = $("#userNumber");
+    SelenideElement addressInput = $("#currentAddress");
+    SelenideElement subjectsClick = $("#subjectsContainer");
+    SelenideElement subjectsInput = $("#subjectsInput");
+    SelenideElement stateClick = $("#state");
+    SelenideElement stateInput = $("#react-select-3-input");
+    SelenideElement cityClick = $("#city");
+    SelenideElement cityInput = $("#react-select-4-input");
+    SelenideElement uploadPictureInput = $("#uploadPicture");
+    SelenideElement submitClick = $("#submit");
+    SelenideElement checkFinalForm = $(".modal-body");
+
 
     //actions:
 
@@ -38,31 +55,31 @@ public class RegistrationFormPage {
     }
 
     public RegistrationFormPage setDateOfBirth() {
-        $("#dateOfBirthInput").click();
-        $(".react-datepicker__month-select").selectOption("May");
-        $(".react-datepicker__year-select").selectOption("1910");
-        $(".react-datepicker__month-container").$(byText("15")).click();
+        dateOfBirth.click();
+        dateOfBirthMonth.selectOption("May");
+        dateOfBirthYear.selectOption("1910");
+        dateOfBirthDay.$(byText("15")).click();
         return this;
     }
 
     public RegistrationFormPage setGender(String value) {
-        $("#genterWrapper").$(byText(value)).click();
+        genderInput.$(byText(value)).click();
         return this;
     }
 
     public RegistrationFormPage setPhoneNumber(String value) {
-        $("#userNumber").setValue(value);
+        phoneNumberInput.setValue(value);
         return  this;
     }
 
     public RegistrationFormPage setAddress(String value) {
-        $("#currentAddress").setValue(value);
+        addressInput.setValue(value);
         return  this;
     }
 
     public RegistrationFormPage setSubjects(String value) {
-        $("#subjectsContainer").click();
-        $("#subjectsInput").setValue(value).pressEnter();
+        subjectsClick.click();
+        subjectsInput.setValue(value).pressEnter();
         return this;
     }
 
@@ -76,31 +93,32 @@ public class RegistrationFormPage {
     }
 
     public RegistrationFormPage setState(String value) {
-        $("div[class=' css-yk16xz-control'] div[class=' css-1hwfws3']").click();
-        $("#react-select-3-input").setValue(value).pressEnter();
+        //("div[class=' css-yk16xz-control'] div[class=' css-1hwfws3']").click();
+        stateClick.click();
+        stateInput.setValue(value).pressEnter();
         return this;
     }
 
     public RegistrationFormPage setCity(String value) {
-        $("div[id='city'] div[class=' css-tlfecz-indicatorContainer']").click();
-        $("#react-select-4-input").setValue(value).pressEnter();
+        cityClick.click();
+        cityInput.setValue(value).pressEnter();
         return this;
     }
 
     public RegistrationFormPage setFileUpload(String value) {
-        $("#uploadPicture").uploadFromClasspath(value);
+        uploadPictureInput.uploadFromClasspath(value);
         return this;
 
     }
-    public RegistrationFormPage setSubmit() {
-        $("#submit").click();
+    public RegistrationFormPage clickSubmit() {
+        submitClick.click();
         return this;
 
     }
 
     //итоговая форма
-    public RegistrationFormPage setFinalFormTest(String key, String value) {
-        $(".modal-body").$(byText(key))
+    public RegistrationFormPage checkFinalFormTest(String key, String value) {
+        checkFinalForm.$(byText(key))
                 .parent().shouldHave(text(value));
         return this;
     }

@@ -54,11 +54,11 @@ public class RegistrationFormPage {
         return this;
     }
 
-    public RegistrationFormPage setDateOfBirth() {
+    public RegistrationFormPage setDateOfBirth(String month, String year, String day) {
         dateOfBirth.click();
-        dateOfBirthMonth.selectOption("May");
-        dateOfBirthYear.selectOption("1910");
-        dateOfBirthDay.$(byText("15")).click();
+        dateOfBirthMonth.selectOption(month);
+        dateOfBirthYear.selectOption(year);
+        dateOfBirthDay.$(byText(day)).click();
         return this;
     }
 
@@ -93,7 +93,6 @@ public class RegistrationFormPage {
     }
 
     public RegistrationFormPage setState(String value) {
-        //("div[class=' css-yk16xz-control'] div[class=' css-1hwfws3']").click();
         stateClick.click();
         stateInput.setValue(value).pressEnter();
         return this;

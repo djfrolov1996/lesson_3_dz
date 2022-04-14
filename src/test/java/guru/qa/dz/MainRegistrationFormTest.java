@@ -36,7 +36,7 @@ public class MainRegistrationFormTest {
         RegistrationFormPage registrationFormPage = new RegistrationFormPage();
 
         //открытие браузера
-        registrationFormPage.setOpenPage();
+        registrationFormPage.OpenPage();
 
         //заполнение форм
         registrationFormPage.setFirstName(firstName)

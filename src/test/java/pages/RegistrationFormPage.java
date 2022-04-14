@@ -34,7 +34,7 @@ public class RegistrationFormPage {
     //actions:
 
     //открытие браузера
-    public RegistrationFormPage setOpenPage() {
+    public RegistrationFormPage OpenPage() {
         open("/automation-practice-form");
         return this;
     }

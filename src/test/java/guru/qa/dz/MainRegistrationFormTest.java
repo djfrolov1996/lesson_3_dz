@@ -3,9 +3,9 @@ package guru.qa.dz;
 import com.codeborne.selenide.Configuration;
 import com.github.javafaker.Faker;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import pages.RegistrationFormPage;
-import utils.RandomUtils;
 import static java.lang.String.format;
 
 public class MainRegistrationFormTest {
@@ -19,33 +19,39 @@ public class MainRegistrationFormTest {
 
     Faker faker = new Faker();
     //переменные
-    String firstName = faker.name().firstName(),
-            lastName = faker.name().lastName(),
+    String
             gender = faker.demographic().sex(),
             currentAddress = faker.rickAndMorty().location(),
-            mail = faker.internet().emailAddress(),
-            mobile = RandomUtils.getRandomPhone(10),
             subjects = "English",
             state = "NCR",
             city = "Noida",
-            image = "img/image.jpeg",
-            expectedFullName = format("%s %s", firstName, lastName);
+            image = "img/image.jpeg";
 
-    @Test
-    void fillFormTest(){
+    @CsvSource(value = {
+            "Ivan | Petrov | ivanpetrov@gmail.com | 8888888888 | Pushkina 33",
+            "Denis | Kozlov | deniskozlov@gmail.com| 7777777777 | Kolotushkina 55"
+    },
+            delimiter = '|'
+    )
+    @ParameterizedTest
+    void fillFormTest(String testFirstName,
+                      String testLastName,
+                      String testEmail,
+                      String testMobileNumber,
+                      String testCurrentAddress){
         RegistrationFormPage registrationFormPage = new RegistrationFormPage();
 
         //открытие браузера
         registrationFormPage.openPage();
 
         //заполнение форм
-        registrationFormPage.setFirstName(firstName)
-                .setLastName(lastName)
-                .setEmail(mail)
+        registrationFormPage.setFirstName(testFirstName)
+                .setLastName(testLastName)
+                .setEmail(testEmail)
                 .setGender(gender)
                 .setDateOfBirth("May","1990","10")
-                .setPhoneNumber(mobile)
-                .setAddress(currentAddress)
+                .setPhoneNumber(testMobileNumber)
+                .setAddress(testCurrentAddress)
                 .setSubjects(subjects)
                 .setHobbies()
                 .setState(state)
@@ -54,14 +60,14 @@ public class MainRegistrationFormTest {
                 .clickSubmit();
 
         //итоговая форма
-        registrationFormPage.checkFinalFormTest("Student Name", expectedFullName)
-                .checkFinalFormTest("Student Email", mail)
+        registrationFormPage.checkFinalFormTest("Student Name", format("%s %s", testFirstName, testLastName))
+                .checkFinalFormTest("Student Email", testEmail)
+                .checkFinalFormTest("Mobile", testMobileNumber)
+                .checkFinalFormTest("State and City", format("%s %s", state, city))
+                .checkFinalFormTest("Address", testCurrentAddress)
                 .checkFinalFormTest("Gender", gender)
                 .checkFinalFormTest("Date of Birth", "10 May,1990")
-                .checkFinalFormTest("Mobile", mobile)
-                .checkFinalFormTest("Address", currentAddress)
                 .checkFinalFormTest("Subjects", subjects)
-                .checkFinalFormTest("State and City", format("%s %s", state, city))
                 .checkFinalFormTest("Picture", image.substring(4));
     }
 
